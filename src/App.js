@@ -1,11 +1,13 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import PostJob from './pages/PostJob';
 import Profile from './pages/Profile';
-import {css} from "@emotion/react";
+import Home from './pages/Home';
+import RecommendJobs from './pages/RecommendJobs';
+import { Toaster } from 'react-hot-toast';
+
 import FadeLoader from "react-spinners/FadeLoader"
 import { useSelector } from 'react-redux';
 
@@ -18,12 +20,14 @@ const App  = () => {
        </div>)}
      
 <BrowserRouter>
+<Toaster position="top-center" reverseOrder={false} />
     <Routes>
-      <Route path="/" element={<Home />}/>
       <Route path="/login" element={<Login />}/>
       <Route path="/register" element={<Register />}/>
       <Route path="/postjob" element={<PostJob/>}/>
       <Route path="/profile" element={<Profile/>}/>
+      <Route path="/recommendjobs" element={<RecommendJobs/>}/> 
+      <Route path="/" element={<Home/>}/>
     </Routes>
 </BrowserRouter>
 </div>

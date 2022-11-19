@@ -1,35 +1,34 @@
+import React, { useEffect } from 'react'
 import axios from 'axios'
-import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import Header from '../components/header/Header'
-import JobCard from '../components/card/JobCard'
 
+const Home = () => {
+  const getData = async() => {
+    try{
+      const response = await axios.post('api/user/get-user-info-by-id',{},
+      {
+        headers: {
+          Authorization :'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      console.log(response.data)
 
-function Home() {
-  const [jobs,setJobs] = useState([]);
+    }catch(error){
+      console.log(error)
+
+    }
+
+  }
+
 
   useEffect(()=>{
-    const fetchJobs = async()=>{
-      const response = await axios.get("/api/jobs/getalljobs")
-      setJobs(response.data);
-    };
-    fetchJobs();
+
+    getData()
 
   },[])
-
   return (
     <>
- 
-  <Header />
-  <h3>aaa</h3>
-  {jobs.map((job)=>(
-  <JobCard job={job} key={job.id}  />
-  ))}
 
-
-  </>
-  
+    </>
   )
 }
 
