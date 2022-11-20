@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
+import Layout from '../components/Layout'
 
 const Home = () => {
   const getData = async() => {
@@ -10,10 +11,10 @@ const Home = () => {
           Authorization :'Bearer ' + localStorage.getItem('token')
         }
       })
-      console.log(response.data)
+
 
     }catch(error){
-      console.log(error)
+      
 
     }
 
@@ -27,6 +28,9 @@ const Home = () => {
   },[])
   return (
     <>
+    <Layout>
+      <h1>Homepage</h1>
+    </Layout>
 
     </>
   )

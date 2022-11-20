@@ -1,22 +1,16 @@
-import {combineReducers} from "redux";
-import { composeWithDevTools } from '@redux-devtools/extension';
-import {createStore,applyMiddleware} from "redux";
-import thunk from "redux-thunk";
-import { jobsReducer } from "./reducers/jobsReducer";
-import { loaderReducer } from "./reducers/loaderReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import { alertsSlice } from "./alertsSlice";
+import { usersSlice } from "./usersSlice";
+
 
 const rootReducer = combineReducers({
-    jobsReducers:jobsReducer,
-    loaderReducer:loaderReducer,
-})
+  alerts: alertsSlice.reducer,
+  user:usersSlice.reducer,
+});
 
+const store = configureStore({
+  reducer:rootReducer,
+});
 
-const store = createStore(
-    rootReducer,
-    composeWithDevTools(
-      applyMiddleware(thunk)
-      
-    )
-  );
-
-  export default store;
+export default store;
