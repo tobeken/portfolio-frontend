@@ -7,30 +7,40 @@ import Profile from './pages/Profile';
 import Home from './pages/Home';
 import RecommendJobs from './pages/RecommendJobs';
 import { Toaster } from 'react-hot-toast';
-
-import FadeLoader from "react-spinners/FadeLoader"
 import { useSelector } from 'react-redux';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
+import AllJobs from './pages/AllJobs';
 
 const App  = () => {
-  const {loader} = useSelector(state=>state.loaderReducer)
+
+  const {loading} = useSelector(state=>state.alerts)
   return (
-    <div className='App'>
-      {loader && (  <div className="sweet-loading text-center">
-        <FadeLoader color={"blue"} />
-       </div>)}
      
 <BrowserRouter>
+{loading && (<div className='spinner-parent'>
+  <div class="spinner-border" role="status">
+  </div>
+</div>)}
 <Toaster position="top-center" reverseOrder={false} />
+<div className='loader'></div>
     <Routes>
-      <Route path="/login" element={<Login />}/>
-      <Route path="/register" element={<Register />}/>
+      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>}/>
+      <Route path="/register" element={<PublicRoute><Register /></PublicRoute>}/>
+      <Route path="/alljobs" element={<AllJobs/>} />
       <Route path="/postjob" element={<PostJob/>}/>
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/recommendjobs" element={<RecommendJobs/>}/> 
-      <Route path="/" element={<Home/>}/>
+      <Route path="/" 
+             element={
+             <ProtectedRoute>
+                  <Home />
+             </ProtectedRoute>
+            }
+            />
     </Routes>
 </BrowserRouter>
-</div>
+
   );
 }
 
