@@ -2,15 +2,22 @@ import React from 'react'
 import Layout from '../components/Layout'
 import { Row, Col, Form, Tabs, Input, Button } from "antd"
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
+import { hideLoading, showLoading } from '../redux/alertsSlice';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast'
+import axios from 'axios';
 const { TabPane } = Tabs
 const { TextArea } = Input;
 
+
 const Profile = () => {
+  const dispatch = useDispatch();
   const [personalInfo,setPersonalInfo] = useState()
   const [activeTab,setActiveTab] = useState("1")
-  const users = useSelector((state)=>state.user.user);
-  console.log(users)
+  const navigate = useNavigate();
+  const user = useSelector((state)=>state.user.user);
+ 
 
   const onPersonalInfoSubmit = (values) => {
     setPersonalInfo(values)
@@ -18,17 +25,40 @@ const Profile = () => {
 
   }
 
-  const onPersonalInfoFinal = (values) => {
-    const finalObj = {...personalInfo,...values}
+  const onPersonalInfoFinal = async(values) => {
+    values._id = user._id
+
+    try{
+
+      dispatch(showLoading());   
+      const response = await axios.post("/api/user/update",{
+        ...personalInfo,
+        ...values,
+        
+      });
+      dispatch(hideLoading());
+      if(response.data.success){
+        toast.success(response.data.message);
+        navigate("/");
+      }else{
+        toast.error(response.data.message);
+       
+      }
+    }catch{
+      dispatch(hideLoading())
+
+    }
 
   }
+
+
 
   return (
     
     <Layout>
       <Tabs defaultActiveKey='1' activeKey={activeTab}>
           <TabPane tab="基本情報" key="1">
-            <Form layout="vertical" onFinish={onPersonalInfoSubmit} initialValues={users}>
+            <Form layout="vertical" onFinish={onPersonalInfoSubmit} initialValues={user}>
               <Row gutter={16}>
                 <Col lg={8} sm={24}>
                   <Form.Item label="氏" required rules ={[{required: true}]} name="firstName">
@@ -71,7 +101,7 @@ const Profile = () => {
             </Form>
           </TabPane>
           <TabPane tab="スキルと経験" key="2">
-            <Form  initialValues={users} layout="vertical" onFinish={onPersonalInfoFinal}>
+            <Form  initialValues={user} layout="vertical" onFinish={onPersonalInfoFinal}>
               <Row>
               <Col lg={24} sm={24}>
                 <Form.List name="education" >
