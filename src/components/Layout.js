@@ -49,7 +49,7 @@ const Layout = ({children}) => {
     const menuToBeRendered = user?.isCandidate ? userMenu : companyMenu
   return (
     <div className='main'>
-        <div className='d-flex layout'>
+        <div className='d-flex layout' >
                 <div className={`${collapsed ? 'collapsed-sidebar': 'sidebar'}`}>
                    <div className='sidebar-header'>
                         <h1 className='logo'>Find Job</h1>

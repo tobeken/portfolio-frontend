@@ -1,12 +1,14 @@
 import React from 'react'
-import Header from '../components/header/Header'
+import Layout from '../components/Layout'
+
 
 const RecommendJobs = () => {
   return (
-    <>
-    <Header />
+    <Layout>
+
     <div>RecommendJobs</div>
-    </>
+    </Layout>
+   
   )
 }
 

@@ -87,3 +87,30 @@ label{
   width:400px;
 
 }
+
+input,textarea {
+  border:1px solid #001529 !important;
+  box-shadow: none !important;
+
+}
+
+.flex{
+  display: flex !important;
+  align-items: center !important;
+}
+
+p{
+  font-weight:500 !important;
+  margin:2px !important;
+  padding:2px !important;
+  font-size:16px;
+
+}
+
+.bs{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.job-div{
+  border-radius: 15px !important;
+}

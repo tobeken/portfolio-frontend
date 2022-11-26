@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import Layout from '../components/Layout'
+import {useSelector,useDispatch} from "react-redux"
+import axios from 'axios'
+import { setJob } from '../redux/jobsSlice'
 
 const Home = () => {
+  
+
   const getData = async() => {
     try{
       const response = await axios.post('api/user/get-user-info-by-id',{},
@@ -30,6 +35,9 @@ const Home = () => {
     <>
     <Layout>
       <h1>Homepage</h1>
+      
+      
+
     </Layout>
 
     </>
